@@ -18,26 +18,22 @@ const _orientation = [
     Rotation.y(3),
     Rotation.z(3),
     Rotation.z(2),
-    Rotation.y(1),
+    Rotation.y(),
   ],
 ];
 
 /// The rotation move to rotate the entire cube [n] times on [axis].
 class Rotation extends Equatable {
-  /// The axis.
-  final Axis axis;
-
-  /// The number of times to rotate.
-  final int n;
-
   /// Creates an instance of [Rotation] class.
   const Rotation({
     required this.axis,
     int n = 1,
-  })  : n = (n >= 0 ? n : n >= -4 ? n + 4 : -n - 4) % 4;
-
-  /// An instance of [Rotate] class that do not apply the rotation.
-  static const none = Rotation(axis: Axis.x, n: 0);
+  }) : n = (n >= 0
+                ? n
+                : n >= -4
+                    ? n + 4
+                    : -n - 4) %
+            4;
 
   /// Creates an instance of [Rotation] class to rotate [n] times on [Axis.x].
   const Rotation.x([int n = 1]) : this(axis: Axis.x, n: n);
@@ -47,6 +43,15 @@ class Rotation extends Equatable {
 
   /// Creates an instance of [Rotation] class to rotate [n] times on [Axis.z].
   const Rotation.z([int n = 1]) : this(axis: Axis.x, n: n);
+
+  /// The axis.
+  final Axis axis;
+
+  /// The number of times to rotate.
+  final int n;
+
+  /// An instance of [Rotation] class that do not apply the rotation.
+  static const none = Rotation(axis: Axis.x, n: 0);
 
   /// Invert the [Rotation].
   Rotation inverse() => Rotation(axis: axis, n: -n);
@@ -62,20 +67,21 @@ class Rotation extends Equatable {
     List<Color> definition,
     Rotation rotation,
   ) {
+    var _definition = definition;
     final axis = rotation.axis;
     final n = rotation.n;
 
     for (var i = 1; i <= n; i++) {
       if (axis == Axis.x) {
-        definition = _rotateX(definition);
+        _definition = _rotateX(_definition);
       } else if (axis == Axis.y) {
-        definition = _rotateY(definition);
+        _definition = _rotateY(_definition);
       } else {
-        definition = _rotateZ(definition);
+        _definition = _rotateZ(_definition);
       }
     }
 
-    return definition;
+    return _definition;
   }
 
   static List<Rotation> _findRotation(List<Color> input) {
@@ -183,7 +189,11 @@ class Rotation extends Equatable {
 
   @override
   String toString() {
-    final name = axis == Axis.z ? 'Z' : axis == Axis.y ? 'Y' : 'X';
+    final name = axis == Axis.z
+        ? 'Z'
+        : axis == Axis.y
+            ? 'Y'
+            : 'X';
     return '$name$n';
   }
 
