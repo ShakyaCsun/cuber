@@ -1,5 +1,5 @@
 /// 336 * 336 = 112896
-const mergeUpRightToUpLeftAndUpBottomToDownFrontTable = [
+const mergeUpRightToUpLeftAndUpBackToDownFrontTable = [
   [
     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, //
     65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, 65535, //

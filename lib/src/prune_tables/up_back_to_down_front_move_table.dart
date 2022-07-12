@@ -1,5 +1,5 @@
 /// 1320 * 18 = 23760
-const upBottomToDownFrontMoveTable = [
+const upBackToDownFrontMoveTable = [
   [
     18, 14, 10, 1006, 40, 352, 347, 71, 515, //
     0, 0, 0, 504, 120, 720, 0, 0, 0, //

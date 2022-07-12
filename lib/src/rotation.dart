@@ -126,7 +126,7 @@ class Rotation extends Equatable {
     final front = input.sublist(18, 27);
     final down = input.sublist(27, 36);
     final left = input.sublist(36, 45);
-    final bottom = input.sublist(45, 54).reversed;
+    final back = input.sublist(45, 54).reversed;
 
     _rotateCW(right);
     _rotateCCW(left);
@@ -135,7 +135,7 @@ class Rotation extends Equatable {
       ...front,
       ...right,
       ...down,
-      ...bottom,
+      ...back,
       ...left,
       ...up,
     ];
@@ -147,14 +147,14 @@ class Rotation extends Equatable {
     final front = input.sublist(18, 27);
     final down = input.sublist(27, 36);
     final left = input.sublist(36, 45);
-    final bottom = input.sublist(45, 54);
+    final back = input.sublist(45, 54);
 
     _rotateCW(up);
     _rotateCCW(down);
 
     return [
       ...up,
-      ...bottom,
+      ...back,
       ...right,
       ...down,
       ...front,
@@ -168,10 +168,10 @@ class Rotation extends Equatable {
     final front = input.sublist(18, 27);
     final down = input.sublist(27, 36);
     final left = input.sublist(36, 45);
-    final bottom = input.sublist(45, 54);
+    final back = input.sublist(45, 54);
 
     _rotateCW(front);
-    _rotateCCW(bottom);
+    _rotateCCW(back);
     _rotateCW(up);
     _rotateCW(right);
     _rotateCW(down);
@@ -183,7 +183,7 @@ class Rotation extends Equatable {
       ...front,
       ...right,
       ...down,
-      ...bottom,
+      ...back,
     ];
   }
 

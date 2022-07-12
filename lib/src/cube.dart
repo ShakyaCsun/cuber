@@ -17,12 +17,12 @@ const _cornerFacelet = [
 const _cornerColor = [
   [Color.up, Color.right, Color.front],
   [Color.up, Color.front, Color.left],
-  [Color.up, Color.left, Color.bottom],
-  [Color.up, Color.bottom, Color.right],
+  [Color.up, Color.left, Color.back],
+  [Color.up, Color.back, Color.right],
   [Color.down, Color.front, Color.right],
   [Color.down, Color.left, Color.front],
-  [Color.down, Color.bottom, Color.left],
-  [Color.down, Color.right, Color.bottom],
+  [Color.down, Color.back, Color.left],
+  [Color.down, Color.right, Color.back],
 ];
 
 const _edgeFacelet = [
@@ -44,15 +44,15 @@ const _edgeColor = [
   [Color.up, Color.right],
   [Color.up, Color.front],
   [Color.up, Color.left],
-  [Color.up, Color.bottom],
+  [Color.up, Color.back],
   [Color.down, Color.right],
   [Color.down, Color.front],
   [Color.down, Color.left],
-  [Color.down, Color.bottom],
+  [Color.down, Color.back],
   [Color.front, Color.right],
   [Color.front, Color.left],
-  [Color.bottom, Color.left],
-  [Color.bottom, Color.right],
+  [Color.back, Color.left],
+  [Color.back, Color.right],
 ];
 
 /// The [Cube]'s status.
@@ -188,27 +188,27 @@ class Cube extends Equatable {
   static const _defaultCornerPositions = [
     Corner.upRightFront,
     Corner.upFrontLeft,
-    Corner.upLeftBottom,
-    Corner.upBottomRight,
+    Corner.upLeftBack,
+    Corner.upBackRight,
     Corner.downFrontRight,
     Corner.downLeftFront,
-    Corner.downBottomLeft,
-    Corner.downRightBottom,
+    Corner.downBackLeft,
+    Corner.downRightBack,
   ];
 
   static const _defaultEdgePositions = [
     Edge.upRight,
     Edge.upFront,
     Edge.upLeft,
-    Edge.upBottom,
+    Edge.upBack,
     Edge.downRight,
     Edge.downFront,
     Edge.downLeft,
-    Edge.downBottom,
+    Edge.downBack,
     Edge.frontRight,
     Edge.frontLeft,
-    Edge.bottomLeft,
-    Edge.bottomRight,
+    Edge.backLeft,
+    Edge.backRight,
   ];
 
   /// The solved [Cube].
@@ -499,7 +499,7 @@ class Cube extends Equatable {
     var res = 0;
 
     for (var i = Corner.upRightFront.index;
-        i < Corner.downRightBottom.index;
+        i < Corner.downRightBack.index;
         i++) {
       res = 3 * res + _co[i];
     }
@@ -513,7 +513,7 @@ class Cube extends Equatable {
     var twistParity = 0;
     var _value = value;
 
-    for (var i = Corner.downRightBottom.index - 1;
+    for (var i = Corner.downRightBack.index - 1;
         i >= Corner.upRightFront.index;
         i--) {
       co[i] = _value % 3;
@@ -521,7 +521,7 @@ class Cube extends Equatable {
       _value ~/= 3;
     }
 
-    co[Corner.downRightBottom.index] = (3 - twistParity % 3) % 3;
+    co[Corner.downRightBack.index] = (3 - twistParity % 3) % 3;
 
     return Cube._(cp: _cp, co: co, ep: _ep, eo: _eo);
   }
@@ -530,7 +530,7 @@ class Cube extends Equatable {
   int computeFlip() {
     var res = 0;
 
-    for (var i = Edge.upRight.index; i < Edge.bottomRight.index; i++) {
+    for (var i = Edge.upRight.index; i < Edge.backRight.index; i++) {
       res = 2 * res + _eo[i];
     }
 
@@ -543,13 +543,13 @@ class Cube extends Equatable {
     var flipParity = 0;
     var _value = value;
 
-    for (var i = Edge.bottomRight.index - 1; i >= Edge.upRight.index; i--) {
+    for (var i = Edge.backRight.index - 1; i >= Edge.upRight.index; i--) {
       eo[i] = _value % 2;
       flipParity += eo[i];
       _value ~/= 2;
     }
 
-    eo[Edge.bottomRight.index] = (2 - flipParity % 2) % 2;
+    eo[Edge.backRight.index] = (2 - flipParity % 2) % 2;
 
     return Cube._(cp: _cp, co: _co, ep: _ep, eo: eo);
   }
@@ -558,7 +558,7 @@ class Cube extends Equatable {
   int computeCornerParity() {
     var s = 0;
 
-    for (var i = Corner.downRightBottom.index;
+    for (var i = Corner.downRightBack.index;
         i >= Corner.upRightFront.index + 1;
         i--) {
       for (var j = i - 1; j >= Corner.upRightFront.index; j--) {
@@ -575,7 +575,7 @@ class Cube extends Equatable {
   int computeEdgeParity() {
     var s = 0;
 
-    for (var i = Edge.bottomRight.index; i >= Edge.upRight.index + 1; i--) {
+    for (var i = Edge.backRight.index; i >= Edge.upRight.index + 1; i--) {
       for (var j = i - 1; j >= Edge.upRight.index; j--) {
         if (_ep[j].index > _ep[i].index) {
           s++;
@@ -587,14 +587,14 @@ class Cube extends Equatable {
   }
 
   ///
-  int computeFrontRightToBottomRight() {
+  int computeFrontRightToBackRight() {
     final edge = List.filled(4, Edge.upRight);
     var a = 0, x = 0, b = 0;
 
     // compute the index a < (12 choose 4) and the permutation array.
-    for (var j = Edge.bottomRight.index; j >= Edge.upRight.index; j--) {
+    for (var j = Edge.backRight.index; j >= Edge.upRight.index; j--) {
       if (Edge.frontRight.index <= _ep[j].index &&
-          _ep[j].index <= Edge.bottomRight.index) {
+          _ep[j].index <= Edge.backRight.index) {
         a += _cnk(11 - j, x + 1);
         edge[3 - x++] = _ep[j];
       }
@@ -616,19 +616,19 @@ class Cube extends Equatable {
   }
 
   ///
-  Cube frontRightToBottomRight(int index) {
+  Cube frontRightToBackRight(int index) {
     final ep = List.filled(edgeCount, Edge.upRight);
 
     final sliceEdge = [
       Edge.frontRight, Edge.frontLeft, //
-      Edge.bottomLeft, Edge.bottomRight
+      Edge.backLeft, Edge.backRight
     ];
 
     final otherEdge = [
       Edge.upRight, Edge.upFront, //
-      Edge.upLeft, Edge.upBottom, //
+      Edge.upLeft, Edge.upBack, //
       Edge.downRight, Edge.downFront, //
-      Edge.downLeft, Edge.downBottom, //
+      Edge.downLeft, Edge.downBack, //
     ];
 
     var b = index % 24; // Permutation
@@ -648,7 +648,7 @@ class Cube extends Equatable {
     // generate combination and set slice edges
     var x = 3;
 
-    for (var j = Edge.upRight.index; j <= Edge.bottomRight.index; j++) {
+    for (var j = Edge.upRight.index; j <= Edge.backRight.index; j++) {
       if (a - _cnk(11 - j, x + 1) >= 0) {
         ep[j] = sliceEdge[3 - x];
         a -= _cnk(11 - j, x-- + 1);
@@ -658,8 +658,8 @@ class Cube extends Equatable {
     x = 0;
 
     // set the remaining edges UR..DB
-    for (var j = Edge.upRight.index; j <= Edge.bottomRight.index; j++) {
-      if (ep[j] == Edge.downBottom) {
+    for (var j = Edge.upRight.index; j <= Edge.backRight.index; j++) {
+      if (ep[j] == Edge.downBack) {
         ep[j] = otherEdge[x++];
       }
     }
@@ -674,7 +674,7 @@ class Cube extends Equatable {
 
     // compute the index a < (8 choose 6) and the permutation array.
     for (var j = Corner.upRightFront.index;
-        j <= Corner.downRightBottom.index;
+        j <= Corner.downRightBack.index;
         j++) {
       if (_cp[j].index <= Corner.downLeftFront.index) {
         a += _cnk(j, x + 1);
@@ -699,15 +699,15 @@ class Cube extends Equatable {
 
   ///
   Cube upRightFrontToDownLeftFront(int index) {
-    final cp = List.filled(cornerCount, Corner.downRightBottom);
+    final cp = List.filled(cornerCount, Corner.downRightBack);
     final corner = [
       Corner.upRightFront, Corner.upFrontLeft, //
-      Corner.upLeftBottom, Corner.upBottomRight, //
+      Corner.upLeftBack, Corner.upBackRight, //
       Corner.downFrontRight, Corner.downLeftFront, //
     ];
     final otherCorner = [
-      Corner.downBottomLeft,
-      Corner.downRightBottom,
+      Corner.downBackLeft,
+      Corner.downRightBack,
     ];
 
     var b = index % 720; // Permutation
@@ -726,7 +726,7 @@ class Cube extends Equatable {
     var x = 5;
 
     // generate combination and set edges
-    for (var j = Corner.downRightBottom.index; j >= 0; j--) {
+    for (var j = Corner.downRightBack.index; j >= 0; j--) {
       if (a - _cnk(j, x + 1) >= 0) {
         cp[j] = corner[x];
         a -= _cnk(j, x-- + 1);
@@ -736,9 +736,9 @@ class Cube extends Equatable {
     x = 0;
 
     for (var j = Corner.upRightFront.index;
-        j <= Corner.downRightBottom.index;
+        j <= Corner.downRightBack.index;
         j++) {
-      if (cp[j] == Corner.downRightBottom) {
+      if (cp[j] == Corner.downRightBack) {
         cp[j] = otherCorner[x++];
       }
     }
@@ -752,7 +752,7 @@ class Cube extends Equatable {
     var a = 0, x = 0, b = 0;
 
     // compute the index a < (12 choose 6) and the permutation array.
-    for (var j = Edge.upRight.index; j <= Edge.bottomRight.index; j++) {
+    for (var j = Edge.upRight.index; j <= Edge.backRight.index; j++) {
       if (_ep[j].index <= Edge.downFront.index) {
         a += _cnk(j, x + 1);
         edge[x++] = _ep[j];
@@ -776,18 +776,18 @@ class Cube extends Equatable {
 
   ///
   Cube upRightToDownFront(int index) {
-    final ep = List.filled(edgeCount, Edge.bottomRight);
+    final ep = List.filled(edgeCount, Edge.backRight);
 
     final edge = [
       Edge.upRight, Edge.upFront, //
-      Edge.upLeft, Edge.upBottom, //
+      Edge.upLeft, Edge.upBack, //
       Edge.downRight, Edge.downFront, //
     ];
 
     final otherEdge = [
-      Edge.downLeft, Edge.downBottom, //
+      Edge.downLeft, Edge.downBack, //
       Edge.frontRight, Edge.frontLeft, //
-      Edge.bottomLeft, Edge.bottomRight, //
+      Edge.backLeft, Edge.backRight, //
     ];
 
     var b = index % 720; // Permutation
@@ -807,7 +807,7 @@ class Cube extends Equatable {
     // generate combination and set slice edges
     var x = 5;
 
-    for (var j = Edge.bottomRight.index; j >= 0; j--) {
+    for (var j = Edge.backRight.index; j >= 0; j--) {
       if (a - _cnk(j, x + 1) >= 0) {
         ep[j] = edge[x];
         a -= _cnk(j, x-- + 1);
@@ -817,8 +817,8 @@ class Cube extends Equatable {
     x = 0;
 
     // set the remaining edges UR..DB
-    for (var j = Edge.upRight.index; j <= Edge.bottomRight.index; j++) {
-      if (ep[j] == Edge.bottomRight) {
+    for (var j = Edge.upRight.index; j <= Edge.backRight.index; j++) {
+      if (ep[j] == Edge.backRight) {
         ep[j] = otherEdge[x++];
       }
     }
@@ -832,7 +832,7 @@ class Cube extends Equatable {
     var a = 0, x = 0, b = 0;
 
     // compute the index a < (12 choose 3) and the permutation array.
-    for (var j = Edge.upRight.index; j <= Edge.bottomRight.index; j++) {
+    for (var j = Edge.upRight.index; j <= Edge.backRight.index; j++) {
       if (_ep[j].index <= Edge.upLeft.index) {
         a += _cnk(j, x + 1);
         edge[x++] = _ep[j];
@@ -856,7 +856,7 @@ class Cube extends Equatable {
 
   ///
   Cube upRightToUpLeft(int index) {
-    final ep = List.filled(edgeCount, Edge.bottomRight);
+    final ep = List.filled(edgeCount, Edge.backRight);
     final edge = [Edge.upRight, Edge.upFront, Edge.upLeft];
 
     var b = index % 6; // Permutation
@@ -875,7 +875,7 @@ class Cube extends Equatable {
     var x = 2;
 
     // generate combination and set edges
-    for (var j = Edge.bottomRight.index; j >= 0; j--) {
+    for (var j = Edge.backRight.index; j >= 0; j--) {
       if (a - _cnk(j, x + 1) >= 0) {
         ep[j] = edge[x];
         a -= _cnk(j, x-- + 1);
@@ -886,13 +886,13 @@ class Cube extends Equatable {
   }
 
   ///
-  int computeUpBottomToDownFront() {
+  int computeUpBackToDownFront() {
     final edge = List.filled(3, Edge.upRight);
     var a = 0, x = 0, b = 0;
 
     // compute the index a < (12 choose 3) and the permutation array.
-    for (var j = Edge.upRight.index; j <= Edge.bottomRight.index; j++) {
-      if (Edge.upBottom.index <= _ep[j].index &&
+    for (var j = Edge.upRight.index; j <= Edge.backRight.index; j++) {
+      if (Edge.upBack.index <= _ep[j].index &&
           _ep[j].index <= Edge.downFront.index) {
         a += _cnk(j, x + 1);
         edge[x++] = _ep[j];
@@ -903,7 +903,7 @@ class Cube extends Equatable {
     for (var j = 2; j > 0; j--) {
       var k = 0;
 
-      while (edge[j].index != j + Edge.upBottom.index) {
+      while (edge[j].index != j + Edge.upBack.index) {
         _rotateLeft(edge, 0, j);
         k++;
       }
@@ -915,9 +915,9 @@ class Cube extends Equatable {
   }
 
   ///
-  Cube upBottomToDownFront(int index) {
-    final ep = List.filled(edgeCount, Edge.bottomRight);
-    final edge = [Edge.upBottom, Edge.downRight, Edge.downFront];
+  Cube upBackToDownFront(int index) {
+    final ep = List.filled(edgeCount, Edge.backRight);
+    final edge = [Edge.upBack, Edge.downRight, Edge.downFront];
 
     var b = index % 6; // Permutation
     var a = index ~/ 6; // Combination
@@ -935,7 +935,7 @@ class Cube extends Equatable {
     var x = 2;
 
     // generate combination and set edges
-    for (var j = Edge.bottomRight.index; j >= 0; j--) {
+    for (var j = Edge.backRight.index; j >= 0; j--) {
       if (a - _cnk(j, x + 1) >= 0) {
         ep[j] = edge[x];
         a -= _cnk(j, x-- + 1);
@@ -946,7 +946,7 @@ class Cube extends Equatable {
   }
 
   ///
-  int computeUpRightFrontToDownLeftBottom() {
+  int computeUpRightFrontToDownLeftBack() {
     final perm = List.of(_cp);
     var b = 0;
 
@@ -966,7 +966,7 @@ class Cube extends Equatable {
   }
 
   ///
-  Cube upRightFrontToDownLeftBottom(int index) {
+  Cube upRightFrontToDownLeftBack(int index) {
     final cp = List.of(_cp);
     final perm = List.of(Corner.values);
     var _index = index;
@@ -990,7 +990,7 @@ class Cube extends Equatable {
   }
 
   ///
-  int computeUpRightToBottomRight() {
+  int computeUpRightToBackRight() {
     final perm = List.of(_ep);
     var b = 0;
 
@@ -1010,7 +1010,7 @@ class Cube extends Equatable {
   }
 
   ///
-  Cube upRightToBottomRight(int index) {
+  Cube upRightToBackRight(int index) {
     var _index = index;
     final ep = List.of(_ep);
     final perm = List.of(Edge.values);
@@ -1185,7 +1185,7 @@ class Cube extends Equatable {
     Color.front: '#4CAF50',
     Color.down: '#FFFFFF',
     Color.left: '#F44336',
-    Color.bottom: '#3F51B5',
+    Color.back: '#3F51B5',
   };
 
   static String _svg(

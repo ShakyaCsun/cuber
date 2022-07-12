@@ -10,7 +10,7 @@ enum Edge {
   upLeft,
 
   /// Up-Down edge.
-  upBottom,
+  upBack,
 
   /// Down-Right edge.
   downRight,
@@ -21,8 +21,8 @@ enum Edge {
   /// Down-Left edge.
   downLeft,
 
-  /// Down-Bottom edge.
-  downBottom,
+  /// Down-Back edge.
+  downBack,
 
   /// Front-Right edge.
   frontRight,
@@ -30,11 +30,11 @@ enum Edge {
   /// Front-Left edge.
   frontLeft,
 
-  /// Bottom-Left edge.
-  bottomLeft,
+  /// Back-Left edge.
+  backLeft,
 
-  /// Bottom-Right edge.
-  bottomRight,
+  /// Back-Right edge.
+  backRight,
 }
 
 /// Number of edges of the cube.

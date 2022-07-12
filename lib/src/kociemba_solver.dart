@@ -4,15 +4,15 @@ import 'package:cuber/src/algorithm.dart';
 import 'package:cuber/src/cube.dart';
 import 'package:cuber/src/move.dart';
 import 'package:cuber/src/prune_tables/flip_move_table.dart';
-import 'package:cuber/src/prune_tables/front_right_to_bottom_right_move_table.dart';
-import 'package:cuber/src/prune_tables/merge_up_right_to_up_left_and_up_bottom_to_down_front_table.dart';
+import 'package:cuber/src/prune_tables/front_right_to_back_right_move_table.dart';
+import 'package:cuber/src/prune_tables/merge_up_right_to_up_left_and_up_back_to_down_front_table.dart';
 import 'package:cuber/src/prune_tables/parity_table.dart';
 import 'package:cuber/src/prune_tables/slice_flip_prun_table.dart';
 import 'package:cuber/src/prune_tables/slice_twist_prun_table.dart';
 import 'package:cuber/src/prune_tables/slice_up_right_front_to_down_left_front_parity_prun_table.dart';
 import 'package:cuber/src/prune_tables/slice_up_right_to_down_front_parity_prun_table.dart';
 import 'package:cuber/src/prune_tables/twist_move_table.dart';
-import 'package:cuber/src/prune_tables/up_bottom_to_down_front_move_table.dart';
+import 'package:cuber/src/prune_tables/up_back_to_down_front_move_table.dart';
 import 'package:cuber/src/prune_tables/up_right_front_to_down_left_front_move_table.dart';
 import 'package:cuber/src/prune_tables/up_right_to_down_front_move_table.dart';
 import 'package:cuber/src/prune_tables/up_right_to_up_left_move_table.dart';
@@ -27,9 +27,9 @@ class _Search {
   final slice = List.filled(31, 0);
   final parity = List.filled(31, 0);
   final upRightFrontToDownLeftFront = List.filled(31, 0);
-  final frontRightToBottomRight = List.filled(31, 0);
+  final frontRightToBackRight = List.filled(31, 0);
   final upRightToUpLeft = List.filled(31, 0);
-  final upBottomToDownFront = List.filled(31, 0);
+  final upBackToDownFront = List.filled(31, 0);
   final upRightToDownFront = List.filled(31, 0);
   final minDistPhaseOne = List.filled(31, 0);
   final minDistPhaseTwo = List.filled(31, 0);
@@ -60,11 +60,11 @@ class KociembaSolver extends Solver {
     final twist = cube.computeTwist();
     final flip = cube.computeFlip();
     final parity = cube.computeCornerParity();
-    final frontRightToBottomRight = cube.computeFrontRightToBottomRight();
+    final frontRightToBackRight = cube.computeFrontRightToBackRight();
     final upRightFrontToDownLeftFront =
         cube.computeUpRightFrontToDownLeftFront();
     final upRightToUpLeft = cube.computeUpRightToUpLeft();
-    final upBottomToDownFront = cube.computeUpBottomToDownFront();
+    final upBackToDownFront = cube.computeUpBackToDownFront();
     // final upRightToDownFront = cube.computeUpRightToDownFront();
 
     final search = _Search();
@@ -73,11 +73,11 @@ class KociembaSolver extends Solver {
     search.flip[0] = flip;
     search.twist[0] = twist;
     search.parity[0] = parity;
-    search.slice[0] = frontRightToBottomRight ~/ 24;
+    search.slice[0] = frontRightToBackRight ~/ 24;
     search.upRightFrontToDownLeftFront[0] = upRightFrontToDownLeftFront;
-    search.frontRightToBottomRight[0] = frontRightToBottomRight;
+    search.frontRightToBackRight[0] = frontRightToBackRight;
     search.upRightToUpLeft[0] = upRightToUpLeft;
-    search.upBottomToDownFront[0] = upBottomToDownFront;
+    search.upBackToDownFront[0] = upBackToDownFront;
     search.minDistPhaseOne[1] = 1; // else failure for depth=1, n=0
 
     var n = 0;
@@ -137,7 +137,7 @@ class KociembaSolver extends Solver {
       search.flip[n + 1] = flipMoveTable[search.flip[n]][mv];
       search.twist[n + 1] = twistMoveTable[search.twist[n]][mv];
       search.slice[n + 1] =
-          frontRightToBottomRightMoveTable[search.slice[n] * 24][mv] ~/ 24;
+          frontRightToBackRightMoveTable[search.slice[n] * 24][mv] ~/ 24;
       search.minDistPhaseOne[n + 1] = max(
         _prunning(
           sliceFlipPrunTable,
@@ -186,16 +186,15 @@ class KociembaSolver extends Solver {
       search.upRightFrontToDownLeftFront[i + 1] =
           upRightFrontToDownLeftFrontMoveTable[
               search.upRightFrontToDownLeftFront[i]][mv];
-      search.frontRightToBottomRight[i + 1] =
-          frontRightToBottomRightMoveTable[search.frontRightToBottomRight[i]]
-              [mv];
+      search.frontRightToBackRight[i + 1] =
+          frontRightToBackRightMoveTable[search.frontRightToBackRight[i]][mv];
       search.parity[i + 1] = parityTable[search.parity[i]][mv];
     }
 
     final d1 = _prunning(
       sliceUpRightFrontToDownLeftFrontParityPrunTable,
       (24 * search.upRightFrontToDownLeftFront[depthPhaseOne] +
-                  search.frontRightToBottomRight[depthPhaseOne]) *
+                  search.frontRightToBackRight[depthPhaseOne]) *
               2 +
           search.parity[depthPhaseOne],
     );
@@ -206,19 +205,19 @@ class KociembaSolver extends Solver {
       final mv = 3 * search.ax[i] + search.po[i] - 1;
       search.upRightToUpLeft[i + 1] =
           upRightToUpLeftMoveTable[search.upRightToUpLeft[i]][mv];
-      search.upBottomToDownFront[i + 1] =
-          upBottomToDownFrontMoveTable[search.upBottomToDownFront[i]][mv];
+      search.upBackToDownFront[i + 1] =
+          upBackToDownFrontMoveTable[search.upBackToDownFront[i]][mv];
     }
 
     search.upRightToDownFront[depthPhaseOne] =
-        mergeUpRightToUpLeftAndUpBottomToDownFrontTable[
+        mergeUpRightToUpLeftAndUpBackToDownFrontTable[
                 search.upRightToUpLeft[depthPhaseOne]]
-            [search.upBottomToDownFront[depthPhaseOne]];
+            [search.upBackToDownFront[depthPhaseOne]];
 
     final d2 = _prunning(
       sliceUpRightToDownFrontParityPrunTable,
       (24 * search.upRightToDownFront[depthPhaseOne] +
-                  search.frontRightToBottomRight[depthPhaseOne]) *
+                  search.frontRightToBackRight[depthPhaseOne]) *
               2 +
           search.parity[depthPhaseOne],
     );
@@ -298,9 +297,8 @@ class KociembaSolver extends Solver {
       search.upRightFrontToDownLeftFront[n + 1] =
           upRightFrontToDownLeftFrontMoveTable[
               search.upRightFrontToDownLeftFront[n]][mv];
-      search.frontRightToBottomRight[n + 1] =
-          frontRightToBottomRightMoveTable[search.frontRightToBottomRight[n]]
-              [mv];
+      search.frontRightToBackRight[n + 1] =
+          frontRightToBackRightMoveTable[search.frontRightToBackRight[n]][mv];
       search.parity[n + 1] = parityTable[search.parity[n]][mv];
       search.upRightToDownFront[n + 1] =
           upRightToDownFrontMoveTable[search.upRightToDownFront[n]][mv];
@@ -309,14 +307,14 @@ class KociembaSolver extends Solver {
         _prunning(
           sliceUpRightToDownFrontParityPrunTable,
           (24 * search.upRightToDownFront[n + 1] +
-                      search.frontRightToBottomRight[n + 1]) *
+                      search.frontRightToBackRight[n + 1]) *
                   2 +
               search.parity[n + 1],
         ),
         _prunning(
           sliceUpRightFrontToDownLeftFrontParityPrunTable,
           (24 * search.upRightFrontToDownLeftFront[n + 1] +
-                      search.frontRightToBottomRight[n + 1]) *
+                      search.frontRightToBackRight[n + 1]) *
                   2 +
               search.parity[n + 1],
         ),
@@ -343,7 +341,7 @@ class KociembaSolver extends Solver {
     [Move.front, Move.frontDouble, Move.frontInv],
     [Move.down, Move.downDouble, Move.downInv],
     [Move.left, Move.leftDouble, Move.leftInv],
-    [Move.bottom, Move.bottomDouble, Move.bottomInv],
+    [Move.back, Move.backDouble, Move.backInv],
   ];
 
   static Algorithm _algorithm(

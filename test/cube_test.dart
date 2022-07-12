@@ -10,13 +10,13 @@ void main() {
     expect(cube.computeEdgeParity(), 0);
     expect(cube.computeFlip(), 0);
     expect(cube.computeTwist(), 0);
-    expect(cube.computeFrontRightToBottomRight(), 0);
-    expect(cube.computeUpRightFrontToDownLeftBottom(), 0);
+    expect(cube.computeFrontRightToBackRight(), 0);
+    expect(cube.computeUpRightFrontToDownLeftBack(), 0);
     expect(cube.computeUpRightToDownFront(), 0);
     expect(cube.computeUpRightToUpLeft(), 0);
-    expect(cube.computeUpBottomToDownFront(), 114);
+    expect(cube.computeUpBackToDownFront(), 114);
     expect(cube.computeUpRightFrontToDownLeftFront(), 0);
-    expect(cube.computeUpRightToBottomRight(), 0);
+    expect(cube.computeUpRightToBackRight(), 0);
     expect(cube.isOk, true);
     expect(
       cube.definition,
@@ -710,17 +710,17 @@ void main() {
       );
     });
 
-    test('bottom', () async {
+    test('back', () async {
       expect(
-        c.move(Move.bottom).definition,
+        c.move(Move.back).definition,
         'RRRUUUUUURRDRRDRRDFFFFFFFFFDDDDDDLLLULLULLULLBBBBBBBBB',
       );
       expect(
-        c.move(Move.bottomInv).definition,
+        c.move(Move.backInv).definition,
         'LLLUUUUUURRURRURRUFFFFFFFFFDDDDDDRRRDLLDLLDLLBBBBBBBBB',
       );
       expect(
-        c.move(Move.bottomDouble).definition,
+        c.move(Move.backDouble).definition,
         'DDDUUUUUURRLRRLRRLFFFFFFFFFDDDDDDUUURLLRLLRLLBBBBBBBBB',
       );
     });

@@ -156,30 +156,30 @@ enum Facelet {
   /// Left facelet at position 9.
   l9,
 
-  /// Bottom facelet at position 1.
+  /// Back facelet at position 1.
   b1,
 
-  /// Bottom facelet at position 2.
+  /// Back facelet at position 2.
   b2,
 
-  /// Bottom facelet at position 3.
+  /// Back facelet at position 3.
   b3,
 
-  /// Bottom facelet at position 4.
+  /// Back facelet at position 4.
   b4,
 
-  /// Bottom facelet at position 5.
+  /// Back facelet at position 5.
   b5,
 
-  /// Bottom facelet at position 6.
+  /// Back facelet at position 6.
   b6,
 
-  /// Bottom facelet at position 7.
+  /// Back facelet at position 7.
   b7,
 
-  /// Bottom facelet at position 8.
+  /// Back facelet at position 8.
   b8,
 
-  /// Bottom facelet at position 9.
+  /// Back facelet at position 9.
   b9,
 }

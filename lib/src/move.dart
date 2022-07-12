@@ -69,8 +69,8 @@ class Move extends Equatable {
   /// Left clockwise move.
   static const left = Move(Color.left);
 
-  /// Bottom clockwise move.
-  static const bottom = Move(Color.bottom);
+  /// Back clockwise move.
+  static const back = Move(Color.back);
 
   /// Down clockwise move.
   static const down = Move(Color.down);
@@ -87,8 +87,8 @@ class Move extends Equatable {
   /// Left counterclockwise move.
   static const leftInv = Move(Color.left, inverted: true);
 
-  /// Bottom counterclockwise move.
-  static const bottomInv = Move(Color.bottom, inverted: true);
+  /// Back counterclockwise move.
+  static const backInv = Move(Color.back, inverted: true);
 
   /// Down counterclockwise move.
   static const downInv = Move(Color.down, inverted: true);
@@ -105,8 +105,8 @@ class Move extends Equatable {
   /// Left double turn move.
   static const leftDouble = Move(Color.left, double: true);
 
-  /// Bottom double turn move.
-  static const bottomDouble = Move(Color.bottom, double: true);
+  /// Back double turn move.
+  static const backDouble = Move(Color.back, double: true);
 
   /// Double double turn move.
   static const downDouble = Move(Color.down, double: true);
@@ -118,19 +118,19 @@ class Move extends Equatable {
     front,
     down,
     left,
-    bottom,
+    back,
     upInv,
     rightInv,
     frontInv,
     downInv,
     leftInv,
-    bottomInv,
+    backInv,
     upDouble,
     rightDouble,
     frontDouble,
     downDouble,
     leftDouble,
-    bottomDouble,
+    backDouble,
   ];
 
   static final _random = Random();

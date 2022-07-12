@@ -1,5 +1,5 @@
 /// 11880 * 18 = 213840
-const frontRightToBottomRightMoveTable = [
+const frontRightToBackRightMoveTable = [
   [
     0, 0, 0, 8824, 10, 8814, 5521, 1, 5520, //
     0, 0, 0, 3339, 5, 3340, 1904, 20, 1908, //

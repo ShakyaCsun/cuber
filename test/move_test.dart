@@ -5,7 +5,7 @@ void main() {
   test('parser', () {
     expect(Move.parse('U'), Move.up);
     expect(Move.parse("R'"), Move.rightInv);
-    expect(Move.parse('B2'), Move.bottomDouble);
+    expect(Move.parse('B2'), Move.backDouble);
   });
 
   test('toString', () {

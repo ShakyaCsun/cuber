@@ -6,11 +6,11 @@ enum Corner {
   /// Up-Left-Front corner.
   upFrontLeft,
 
-  /// Up-Lefy-Bottom corner.
-  upLeftBottom,
+  /// Up-Left-Back corner.
+  upLeftBack,
 
-  /// Up-Right-Bottom corner.
-  upBottomRight,
+  /// Up-Right-Back corner.
+  upBackRight,
 
   /// Down-Right-Front corner.
   downFrontRight,
@@ -18,11 +18,11 @@ enum Corner {
   /// Down-Left-Front corner.
   downLeftFront,
 
-  /// Down-Left-Bottom corner.
-  downBottomLeft,
+  /// Down-Left-Back corner.
+  downBackLeft,
 
-  /// Down-Right-Bottom corner.
-  downRightBottom,
+  /// Down-Right-Back corner.
+  downRightBack,
 }
 
 /// Number of corners of the cube.

@@ -15,8 +15,8 @@ enum Color {
   /// Left face color.
   left,
 
-  /// Bottom face color.
-  bottom,
+  /// Back face color.
+  back,
 }
 
 const _colorByLetter = {
@@ -25,13 +25,13 @@ const _colorByLetter = {
   'F': Color.front,
   'D': Color.down,
   'L': Color.left,
-  'B': Color.bottom,
+  'B': Color.back,
 };
 
 const _letterByColor = {
   Color.front: 'F',
   Color.right: 'R',
-  Color.bottom: 'B',
+  Color.back: 'B',
   Color.left: 'L',
   Color.up: 'U',
   Color.down: 'D',
