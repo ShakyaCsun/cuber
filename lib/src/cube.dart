@@ -1235,7 +1235,7 @@ class Cube extends Equatable {
 
     for (var i = 0; i < 3; i++) {
       for (var k = 0; k < 9; k++) {
-        final color = cube[i * 9 + k];
+        final color = _cube[i * 9 + k];
         facelets.add(colors[color] ?? _defaultSVGColors[color]!);
       }
     }
