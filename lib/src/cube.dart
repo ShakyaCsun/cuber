@@ -1181,11 +1181,11 @@ class Cube extends Equatable {
 
   static const _defaultSVGColors = {
     Color.up: '#FFFF00',
-    Color.right: '#FF9800',
-    Color.front: '#4CAF50',
+    Color.right: '#F44336',
+    Color.front: '#3F51B5',
     Color.down: '#FFFFFF',
-    Color.left: '#F44336',
-    Color.back: '#3F51B5',
+    Color.left: '#FF9800',
+    Color.back: '#4CAF50',
   };
 
   static String _svg(
