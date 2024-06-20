@@ -34,8 +34,8 @@ enum Edge {
   backLeft,
 
   /// Back-Right edge.
-  backRight,
-}
+  backRight;
 
-/// Number of edges of the cube.
-const edgeCount = 12;
+  /// Number of edges of the cube.
+  static const count = 12;
+}

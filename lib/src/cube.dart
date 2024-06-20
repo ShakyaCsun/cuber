@@ -97,7 +97,7 @@ class Cube extends Equatable {
     }
 
     return Cube.of([
-      for (var i = 0; i < definition.length; i++) colorFromString(definition[i])
+      for (var i = 0; i < definition.length; i++) Color.of(definition[i]),
     ]);
   }
 
@@ -109,12 +109,12 @@ class Cube extends Equatable {
 
     definition = Rotation.correctOrientation(definition);
 
-    final cp = List.filled(cornerCount, Corner.upRightFront);
-    final co = List.filled(cornerCount, 0);
-    final ep = List.filled(edgeCount, Edge.upRight);
-    final eo = List.filled(edgeCount, 0);
+    final cp = List.filled(Corner.count, Corner.upRightFront);
+    final co = List.filled(Corner.count, 0);
+    final ep = List.filled(Edge.count, Edge.upRight);
+    final eo = List.filled(Edge.count, 0);
 
-    for (var i = 0; i < cornerCount; i++) {
+    for (var i = 0; i < Corner.count; i++) {
       var ori = 0;
       // get the colors of the cube at corner i, starting with U/D
       for (; ori < 3; ori++) {
@@ -127,7 +127,7 @@ class Cube extends Equatable {
       final a = definition[_cornerFacelet[i][(ori + 1) % 3].index];
       final b = definition[_cornerFacelet[i][(ori + 2) % 3].index];
 
-      for (var j = 0; j < cornerCount; j++) {
+      for (var j = 0; j < Corner.count; j++) {
         if (a == _cornerColor[j][1] && b == _cornerColor[j][2]) {
           cp[i] = Corner.values[j];
           co[i] = ori % 3;
@@ -136,8 +136,8 @@ class Cube extends Equatable {
       }
     }
 
-    for (var i = 0; i < edgeCount; i++) {
-      for (var j = 0; j < edgeCount; j++) {
+    for (var i = 0; i < Edge.count; i++) {
+      for (var j = 0; j < Edge.count; j++) {
         if (definition[_edgeFacelet[i][0].index] == _edgeColor[j][0] &&
             definition[_edgeFacelet[i][1].index] == _edgeColor[j][1]) {
           ep[i] = Edge.values[j];
@@ -218,78 +218,60 @@ class Cube extends Equatable {
   bool get isSolved => this == solved;
 
   /// A [Cube] from a checkerboard-like pattern.
-  static final checkerboard =
-      Cube.from('UFUFUFUFURURURURURFRFRFRFRFDBDBDBDBDLDLDLDLDLBLBLBLBLB');
+  static final checkerboard = Cube.from('UFUFUFUFURURURURURFRFRFRFRFDBDBDBDBDLDLDLDLDLBLBLBLBLB');
 
   /// A [Cube] from a wire-like pattern.
-  static final wire =
-      Cube.from('UUUUUUUUURLLRRRLLRBBFFFFFBBDDDDDDDDDLRRLLLRRLFFBBBBBFF');
+  static final wire = Cube.from('UUUUUUUUURLLRRRLLRBBFFFFFBBDDDDDDDDDLRRLLLRRLFFBBBBBFF');
 
   /// A [Cube] from a spiral-like pattern.
-  static final spiral =
-      Cube.from('FFFFUFFUURRUURUUUURRFRFFRRRBBBBDBDDBDDDDLDLLDLLLLBBLLB');
+  static final spiral = Cube.from('FFFFUFFUURRUURUUUURRFRFFRRRBBBBDBDDBDDDDLDLLDLLLLBBLLB');
 
   /// A [Cube] from a stripe-like pattern.
-  static final stripes =
-      Cube.from('UUUUUUUUUBRFBRFBRFLFRLFRLFRDDDDDDDDDFLBFLBFLBRBLRBLRBL');
+  static final stripes = Cube.from('UUUUUUUUUBRFBRFBRFLFRLFRLFRDDDDDDDDDFLBFLBFLBRBLRBLRBL');
 
   /// A [Cube] from a cross-like pattern.
-  static final crossOne =
-      Cube.from('DUDUUUDUDFRFRRRFRFRFRFFFRFRUDUDDDUDUBLBLLLBLBLBLBBBLBL');
+  static final crossOne = Cube.from('DUDUUUDUDFRFRRRFRFRFRFFFRFRUDUDDDUDUBLBLLLBLBLBLBBBLBL');
 
   /// A [Cube] from a cross-like pattern.
-  static final crossTwo =
-      Cube.from('RURUUURURFRFRRRFRFUFUFFFUFULDLDDDLDLBLBLLLBLBDBDBBBDBD');
+  static final crossTwo = Cube.from('RURUUURURFRFRRRFRFUFUFFFUFULDLDDDLDLBLBLLLBLBDBDBBBDBD');
 
   /// A [Cube] from a cube-in-cube-like pattern.
-  static final cubeInCube =
-      Cube.from('FFFFUUFUURRURRUUUURFFRFFRRRBBBDDBDDBDDDLLDLLDLLLLBBLBB');
+  static final cubeInCube = Cube.from('FFFFUUFUURRURRUUUURFFRFFRRRBBBDDBDDBDDDLLDLLDLLLLBBLBB');
 
   /// A [Cube] from a cube-in-cube-in-cube-like pattern.
-  static final cubeInCubeInCube =
-      Cube.from('RRRRUURUFURFRRFFFFUFRUFFUUULLLDDLBDLBBBLLBDLBDDDDBBDBL');
+  static final cubeInCubeInCube = Cube.from('RRRRUURUFURFRRFFFFUFRUFFUUULLLDDLBDLBBBLLBDLBDDDDBBDBL');
 
   /// A [Cube] from a anaconda-like pattern.
-  static final anaconda =
-      Cube.from('FUFUUFFFFUUUURRURURRRFFRRFRBDBBDDBBBDLDDLLDDDLBLBBLLLL');
+  static final anaconda = Cube.from('FUFUUFFFFUUUURRURURRRFFRRFRBDBBDDBBBDLDDLLDDDLBLBBLLLL');
 
   /// A [Cube] from a python-like pattern.
-  static final python =
-      Cube.from('DUDDUDDUDFFFFRRFRFRFRFFRRRRUUUDDDUUUBBBBLLBLBLBLBBLLLL');
+  static final python = Cube.from('DUDDUDDUDFFFFRRFRFRFRFFRRRRUUUDDDUUUBBBBLLBLBLBLBBLLLL');
 
   /// A [Cube] from a twister-like pattern.
-  static final twister =
-      Cube.from('RURRUURUURRFRRFFRFUFFFFFUUULLLDDDDDLBBBLLLLLBDBDDBBDBB');
+  static final twister = Cube.from('RURRUURUURRFRRFFRFUFFFFFUUULLLDDDDDLBBBLLLLLBDBDDBBDBB');
 
   /// A [Cube] from a tetris-like pattern.
-  static final tetris =
-      Cube.from('FFBFUBFBBUDDURDUUDRLLRFLRRLBBFBDFBFFUDDULDUUDLRRLBRLLR');
+  static final tetris = Cube.from('FFBFUBFBBUDDURDUUDRLLRFLRRLBBFBDFBFFUDDULDUUDLRRLBRLLR');
 
   /// A [Cube] from a chicken-feet-like pattern.
-  static final chickenFeet =
-      Cube.from('RRRRURRRURFFFRFFFFUUFUFUUUULLLLDLDLLBBBBLBLBBDDDDBDDDB');
+  static final chickenFeet = Cube.from('RRRRURRRURFFFRFFFFUUFUFUUUULLLLDLDLLBBBBLBLBBDDDDBDDDB');
 
   /// A [Cube] from a four-spots pattern.
-  static final fourSpots =
-      Cube.from('UUUUUUUUULLLLRLLLLBBBBFBBBBDDDDDDDDDRRRRLRRRRFFFFBFFFF');
+  static final fourSpots = Cube.from('UUUUUUUUULLLLRLLLLBBBBFBBBBDDDDDDDDDRRRRLRRRRFFFFBFFFF');
 
   /// A [Cube] from a six-spots pattern.
-  static final sixSpots =
-      Cube.from('FFFFUFFFFUUUURUUUURRRRFRRRRBBBBDBBBBDDDDLDDDDLLLLBLLLL');
+  static final sixSpots = Cube.from('FFFFUFFFFUUUURUUUURRRRFRRRRBBBBDBBBBDDDDLDDDDLLLLBLLLL');
 
   /// A [Cube] from a six-Ts pattern.
-  static final sixTs =
-      Cube.from('DDUUUUDDURLLRRRRLLFFFBFBBFBDUUDDDDUULRRLLLLRRFBFFBFBBB');
+  static final sixTs = Cube.from('DDUUUUDDURLLRRRRLLFFFBFBBFBDUUDDDDUULRRLLLLRRFBFFBFBBB');
 
   /// Rubik's Cube World Record by Feliks Zemdegs on May 6th, 2018,
   /// at Cube for Cambodia 2018 (Melbourne, Australia) in 4.22 seconds.
-  static final feliksZemdegs422 =
-      Cube.from('FFUUUULRUBLFURFULBFURLFBBRBLDLLDDURRRFDDLFLBDRRDDBBDBF');
+  static final feliksZemdegs422 = Cube.from('FFUUUULRUBLFURFULBFURLFBBRBLDLLDDURRRFDDLFLBDRRDDBBDBF');
 
   /// Rubik's Cube World Record by Yusheng Du (杜宇生) on Nov 24th, 2018,
   /// at Wuhu Open 2018 (Wuhu, China) in 3.47 seconds.
-  static final yushengDu347 =
-      Cube.from('LRUUUBBRRDLFDRRFFBRFFFFLUULLRDBDDLURULUULLBDBRBFDBFDBD');
+  static final yushengDu347 = Cube.from('LRUUUBBRRDLFDRRFFBRFFFFLUULLRDBDDLURULUULLBDBRBFDBFDBD');
 
   static int _cnk(
     int n,
@@ -350,10 +332,10 @@ class Cube extends Equatable {
 
   ///
   Cube cornerMultiply(Cube b) {
-    final cp = List.filled(cornerCount, Corner.upRightFront);
-    final co = List.filled(cornerCount, 0);
+    final cp = List.filled(Corner.count, Corner.upRightFront);
+    final co = List.filled(Corner.count, 0);
 
-    for (var corner = 0; corner < cornerCount; corner++) {
+    for (var corner = 0; corner < Corner.count; corner++) {
       cp[corner] = _cp[b._cp[corner].index];
 
       final oriA = _co[b._cp[corner].index];
@@ -405,7 +387,7 @@ class Cube extends Equatable {
     final ep = List.filled(12, Edge.upRight);
     final eo = List.filled(12, 0);
 
-    for (var edge = 0; edge < edgeCount; edge++) {
+    for (var edge = 0; edge < Edge.count; edge++) {
       ep[edge] = _ep[b._ep[edge].index];
       eo[edge] = (b._eo[edge] + _eo[b._ep[edge].index]) % 2;
     }
@@ -421,27 +403,27 @@ class Cube extends Equatable {
   ///
   Cube inverse() {
     final cpA = List.of(_cp);
-    final cpB = List.filled(cornerCount, Corner.upRightFront);
+    final cpB = List.filled(Corner.count, Corner.upRightFront);
     final coA = List.of(_co);
-    final coB = List.filled(cornerCount, 0);
+    final coB = List.filled(Corner.count, 0);
     final epA = List.of(_ep);
-    final epB = List.filled(edgeCount, Edge.upRight);
+    final epB = List.filled(Edge.count, Edge.upRight);
     final eoA = List.of(_eo);
-    final eoB = List.filled(edgeCount, 0);
+    final eoB = List.filled(Edge.count, 0);
 
-    for (var edge = 0; edge < edgeCount; edge++) {
+    for (var edge = 0; edge < Edge.count; edge++) {
       epB[epA[edge].index] = Edge.values[edge];
     }
 
-    for (var edge = 0; edge < edgeCount; edge++) {
+    for (var edge = 0; edge < Edge.count; edge++) {
       eoB[edge] = eoA[epB[edge].index];
     }
 
-    for (var corner = 0; corner < cornerCount; corner++) {
+    for (var corner = 0; corner < Corner.count; corner++) {
       cpB[cpA[corner].index] = Corner.values[corner];
     }
 
-    for (var corner = 0; corner < cornerCount; corner++) {
+    for (var corner = 0; corner < Corner.count; corner++) {
       final ori = coA[cpB[corner].index];
       // Just for completeness. We do not invert mirrored.
       if (ori >= 3) {
@@ -462,13 +444,13 @@ class Cube extends Equatable {
   }
 
   /// Returns the [Cube]'s [definition] string U..R..F..D..L..B.
-  String get definition => colors.map(stringFromColor).join();
+  String get definition => colors.map((e) => e.letter).join();
 
   /// Returns the facelet colors.
   List<Color> get colors {
     final res = List.filled(54, Color.up);
 
-    for (var i = 0; i < cornerCount; i++) {
+    for (var i = 0; i < Corner.count; i++) {
       final k = _cp[i].index;
       final ori = _co[i];
 
@@ -477,7 +459,7 @@ class Cube extends Equatable {
       }
     }
 
-    for (var i = 0; i < edgeCount; i++) {
+    for (var i = 0; i < Edge.count; i++) {
       final k = _ep[i].index;
       final ori = _eo[i];
 
@@ -617,7 +599,7 @@ class Cube extends Equatable {
 
   ///
   Cube frontRightToBackRight(int index) {
-    final ep = List.filled(edgeCount, Edge.upRight);
+    final ep = List.filled(Edge.count, Edge.upRight);
 
     final sliceEdge = [
       Edge.frontRight, Edge.frontLeft, //
@@ -699,7 +681,7 @@ class Cube extends Equatable {
 
   ///
   Cube upRightFrontToDownLeftFront(int index) {
-    final cp = List.filled(cornerCount, Corner.downRightBack);
+    final cp = List.filled(Corner.count, Corner.downRightBack);
     final corner = [
       Corner.upRightFront, Corner.upFrontLeft, //
       Corner.upLeftBack, Corner.upBackRight, //
@@ -776,7 +758,7 @@ class Cube extends Equatable {
 
   ///
   Cube upRightToDownFront(int index) {
-    final ep = List.filled(edgeCount, Edge.backRight);
+    final ep = List.filled(Edge.count, Edge.backRight);
 
     final edge = [
       Edge.upRight, Edge.upFront, //
@@ -856,7 +838,7 @@ class Cube extends Equatable {
 
   ///
   Cube upRightToUpLeft(int index) {
-    final ep = List.filled(edgeCount, Edge.backRight);
+    final ep = List.filled(Edge.count, Edge.backRight);
     final edge = [Edge.upRight, Edge.upFront, Edge.upLeft];
 
     var b = index % 6; // Permutation
@@ -916,7 +898,7 @@ class Cube extends Equatable {
 
   ///
   Cube upBackToDownFront(int index) {
-    final ep = List.filled(edgeCount, Edge.backRight);
+    final ep = List.filled(Edge.count, Edge.backRight);
     final edge = [Edge.upBack, Edge.downRight, Edge.downFront];
 
     var b = index % 6; // Permutation
@@ -1035,14 +1017,14 @@ class Cube extends Equatable {
 
   /// Verifies if the [Cube] has invalid facelet positions.
   CubeStatus verify() {
-    final ec = List<int>.filled(edgeCount, 0);
-    final cc = List<int>.filled(cornerCount, 0);
+    final ec = List<int>.filled(Edge.count, 0);
+    final cc = List<int>.filled(Corner.count, 0);
 
-    for (var e = 0; e < edgeCount; e++) {
+    for (var e = 0; e < Edge.count; e++) {
       ec[_ep[e].index]++;
     }
 
-    for (var i = 0; i < edgeCount; i++) {
+    for (var i = 0; i < Edge.count; i++) {
       // missing edges
       if (ec[i] != 1) {
         return CubeStatus.missingEdge;
@@ -1051,7 +1033,7 @@ class Cube extends Equatable {
 
     var sum = 0;
 
-    for (var i = 0; i < edgeCount; i++) {
+    for (var i = 0; i < Edge.count; i++) {
       sum += _eo[i];
     }
 
@@ -1059,11 +1041,11 @@ class Cube extends Equatable {
       return CubeStatus.twistedEdge;
     }
 
-    for (var c = 0; c < cornerCount; c++) {
+    for (var c = 0; c < Corner.count; c++) {
       cc[_cp[c].index]++;
     }
 
-    for (var i = 0; i < cornerCount; i++) {
+    for (var i = 0; i < Corner.count; i++) {
       if (cc[i] != 1) {
         return CubeStatus.missingCorner;
       }
@@ -1071,7 +1053,7 @@ class Cube extends Equatable {
 
     sum = 0;
 
-    for (var i = 0; i < cornerCount; i++) {
+    for (var i = 0; i < Corner.count; i++) {
       sum += _co[i];
     }
 
@@ -1112,18 +1094,18 @@ class Cube extends Equatable {
     var cube = this;
 
     for (var i = 0; i <= power; ++i) {
-      final cp = List.filled(cornerCount, Corner.upRightFront);
-      final co = List.filled(cornerCount, 0);
-      final ep = List.filled(edgeCount, Edge.upRight);
-      final eo = List.filled(edgeCount, 0);
+      final cp = List.filled(Corner.count, Corner.upRightFront);
+      final co = List.filled(Corner.count, 0);
+      final ep = List.filled(Edge.count, Edge.upRight);
+      final eo = List.filled(Edge.count, 0);
 
-      for (var k = 0; k < cornerCount; k++) {
+      for (var k = 0; k < Corner.count; k++) {
         final m = cornerMoveTable[type][k];
         cp[k] = cube._cp[m[0]];
         co[k] = (m[1] + cube._co[m[0]]) % 3;
       }
 
-      for (var k = 0; k < edgeCount; k++) {
+      for (var k = 0; k < Edge.count; k++) {
         final m = edgeMoveTable[type][k];
         ep[k] = cube._ep[m[0]];
         eo[k] = (m[1] + cube._eo[m[0]]) % 2;

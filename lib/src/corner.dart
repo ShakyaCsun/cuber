@@ -22,8 +22,8 @@ enum Corner {
   downBackLeft,
 
   /// Down-Right-Back corner.
-  downRightBack,
-}
+  downRightBack;
 
-/// Number of corners of the cube.
-const cornerCount = 8;
+  /// Number of corners of the cube.
+  static const count = 8;
+}

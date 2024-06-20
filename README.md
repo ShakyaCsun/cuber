@@ -4,9 +4,10 @@
 <h1 align="center">Cuber</h1>
 
 <p align="center">
+<a href="https://pub.dev/packages/cuber"><img alt="Pub Version" src="https://img.shields.io/pub/v/cuber?style=flat-square"></img></a>
 <a href="https://github.com/tiagohm/cuber"><img alt="Star on GitHub" src="https://img.shields.io/github/stars/tiagohm/cuber.svg?style=flat-square&logo=github&colorB=deeppink&label=stars"></img></a>
-<a href="https://github.com/dart-lang/pedantic/#enabled-lints"><img alt="style: pedantic" src="https://dart-lang.github.io/linter/lints/style-pedantic.svg"></img></a>
 <a href="https://opensource.org/licenses/MIT"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-purple.svg?style=flat-square"></img></a>
+<a href="https://github.com/tiagohm/cuber/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/tiagohm/cuber/actions/workflows/ci.yml/badge.svg"></img></a>
 </p>
 
 This is a Dart implementation of Herbert Kociemba's two-phase algorithm for solving Rubik's Cube. This was inspired by C implementation of [muodov/kociemba](https://github.com/muodov/kociemba) and [tremwil/TwoPhaseSolver](https://github.com/tremwil/TwoPhaseSolver) projects.
@@ -19,7 +20,7 @@ Add this to your package's pubspec.yaml file:
 
 ```yaml
 dependencies:
-  cuber: ^0.3.0
+  cuber: ^0.4.0
 ```
 
 ## Usage
