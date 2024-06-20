@@ -6,7 +6,7 @@ abstract class Solver {
   ///
   const Solver();
 
-  /// Default maximum mumber of [Solution]'s moves.
+  /// Default maximum number of [Solution]'s moves.
   static const defaultMaxDepth = 25;
 
   /// Default timeout for solve the [Cube].

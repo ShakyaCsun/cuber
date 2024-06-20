@@ -18,10 +18,10 @@ enum Color {
   /// Back face color.
   back('B');
 
+  const Color(this.letter);
+
   /// The letter representing this color.
   final String letter;
-
-  const Color(this.letter);
 
   /// Gets the [Color] from a representation [letter].
   static Color of(String letter) {

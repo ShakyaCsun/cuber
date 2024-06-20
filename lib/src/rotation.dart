@@ -67,21 +67,21 @@ class Rotation extends Equatable {
     List<Color> definition,
     Rotation rotation,
   ) {
-    var _definition = definition;
+    var definition0 = definition;
     final axis = rotation.axis;
     final n = rotation.n;
 
     for (var i = 1; i <= n; i++) {
       if (axis == Axis.x) {
-        _definition = _rotateX(_definition);
+        definition0 = _rotateX(definition0);
       } else if (axis == Axis.y) {
-        _definition = _rotateY(_definition);
+        definition0 = _rotateY(definition0);
       } else {
-        _definition = _rotateZ(_definition);
+        definition0 = _rotateZ(definition0);
       }
     }
 
-    return _definition;
+    return definition0;
   }
 
   static List<Rotation> _findRotation(List<Color> input) {
@@ -90,7 +90,7 @@ class Rotation extends Equatable {
         if (input[i] == Color.up && _orientation[0][k] != null)
           _orientation[0][k]!
         else if (input[i] == Color.right && _orientation[1][k] != null)
-          _orientation[1][k]!
+          _orientation[1][k]!,
     ];
   }
 

@@ -218,60 +218,96 @@ class Cube extends Equatable {
   bool get isSolved => this == solved;
 
   /// A [Cube] from a checkerboard-like pattern.
-  static final checkerboard = Cube.from('UFUFUFUFURURURURURFRFRFRFRFDBDBDBDBDLDLDLDLDLBLBLBLBLB');
+  static final checkerboard = Cube.from(
+    'UFUFUFUFURURURURURFRFRFRFRFDBDBDBDBDLDLDLDLDLBLBLBLBLB',
+  );
 
   /// A [Cube] from a wire-like pattern.
-  static final wire = Cube.from('UUUUUUUUURLLRRRLLRBBFFFFFBBDDDDDDDDDLRRLLLRRLFFBBBBBFF');
+  static final wire = Cube.from(
+    'UUUUUUUUURLLRRRLLRBBFFFFFBBDDDDDDDDDLRRLLLRRLFFBBBBBFF',
+  );
 
   /// A [Cube] from a spiral-like pattern.
-  static final spiral = Cube.from('FFFFUFFUURRUURUUUURRFRFFRRRBBBBDBDDBDDDDLDLLDLLLLBBLLB');
+  static final spiral = Cube.from(
+    'FFFFUFFUURRUURUUUURRFRFFRRRBBBBDBDDBDDDDLDLLDLLLLBBLLB',
+  );
 
   /// A [Cube] from a stripe-like pattern.
-  static final stripes = Cube.from('UUUUUUUUUBRFBRFBRFLFRLFRLFRDDDDDDDDDFLBFLBFLBRBLRBLRBL');
+  static final stripes = Cube.from(
+    'UUUUUUUUUBRFBRFBRFLFRLFRLFRDDDDDDDDDFLBFLBFLBRBLRBLRBL',
+  );
 
   /// A [Cube] from a cross-like pattern.
-  static final crossOne = Cube.from('DUDUUUDUDFRFRRRFRFRFRFFFRFRUDUDDDUDUBLBLLLBLBLBLBBBLBL');
+  static final crossOne = Cube.from(
+    'DUDUUUDUDFRFRRRFRFRFRFFFRFRUDUDDDUDUBLBLLLBLBLBLBBBLBL',
+  );
 
   /// A [Cube] from a cross-like pattern.
-  static final crossTwo = Cube.from('RURUUURURFRFRRRFRFUFUFFFUFULDLDDDLDLBLBLLLBLBDBDBBBDBD');
+  static final crossTwo = Cube.from(
+    'RURUUURURFRFRRRFRFUFUFFFUFULDLDDDLDLBLBLLLBLBDBDBBBDBD',
+  );
 
   /// A [Cube] from a cube-in-cube-like pattern.
-  static final cubeInCube = Cube.from('FFFFUUFUURRURRUUUURFFRFFRRRBBBDDBDDBDDDLLDLLDLLLLBBLBB');
+  static final cubeInCube = Cube.from(
+    'FFFFUUFUURRURRUUUURFFRFFRRRBBBDDBDDBDDDLLDLLDLLLLBBLBB',
+  );
 
   /// A [Cube] from a cube-in-cube-in-cube-like pattern.
-  static final cubeInCubeInCube = Cube.from('RRRRUURUFURFRRFFFFUFRUFFUUULLLDDLBDLBBBLLBDLBDDDDBBDBL');
+  static final cubeInCubeInCube = Cube.from(
+    'RRRRUURUFURFRRFFFFUFRUFFUUULLLDDLBDLBBBLLBDLBDDDDBBDBL',
+  );
 
   /// A [Cube] from a anaconda-like pattern.
-  static final anaconda = Cube.from('FUFUUFFFFUUUURRURURRRFFRRFRBDBBDDBBBDLDDLLDDDLBLBBLLLL');
+  static final anaconda = Cube.from(
+    'FUFUUFFFFUUUURRURURRRFFRRFRBDBBDDBBBDLDDLLDDDLBLBBLLLL',
+  );
 
   /// A [Cube] from a python-like pattern.
-  static final python = Cube.from('DUDDUDDUDFFFFRRFRFRFRFFRRRRUUUDDDUUUBBBBLLBLBLBLBBLLLL');
+  static final python = Cube.from(
+    'DUDDUDDUDFFFFRRFRFRFRFFRRRRUUUDDDUUUBBBBLLBLBLBLBBLLLL',
+  );
 
   /// A [Cube] from a twister-like pattern.
-  static final twister = Cube.from('RURRUURUURRFRRFFRFUFFFFFUUULLLDDDDDLBBBLLLLLBDBDDBBDBB');
+  static final twister = Cube.from(
+    'RURRUURUURRFRRFFRFUFFFFFUUULLLDDDDDLBBBLLLLLBDBDDBBDBB',
+  );
 
   /// A [Cube] from a tetris-like pattern.
-  static final tetris = Cube.from('FFBFUBFBBUDDURDUUDRLLRFLRRLBBFBDFBFFUDDULDUUDLRRLBRLLR');
+  static final tetris = Cube.from(
+    'FFBFUBFBBUDDURDUUDRLLRFLRRLBBFBDFBFFUDDULDUUDLRRLBRLLR',
+  );
 
   /// A [Cube] from a chicken-feet-like pattern.
-  static final chickenFeet = Cube.from('RRRRURRRURFFFRFFFFUUFUFUUUULLLLDLDLLBBBBLBLBBDDDDBDDDB');
+  static final chickenFeet = Cube.from(
+    'RRRRURRRURFFFRFFFFUUFUFUUUULLLLDLDLLBBBBLBLBBDDDDBDDDB',
+  );
 
   /// A [Cube] from a four-spots pattern.
-  static final fourSpots = Cube.from('UUUUUUUUULLLLRLLLLBBBBFBBBBDDDDDDDDDRRRRLRRRRFFFFBFFFF');
+  static final fourSpots = Cube.from(
+    'UUUUUUUUULLLLRLLLLBBBBFBBBBDDDDDDDDDRRRRLRRRRFFFFBFFFF',
+  );
 
   /// A [Cube] from a six-spots pattern.
-  static final sixSpots = Cube.from('FFFFUFFFFUUUURUUUURRRRFRRRRBBBBDBBBBDDDDLDDDDLLLLBLLLL');
+  static final sixSpots = Cube.from(
+    'FFFFUFFFFUUUURUUUURRRRFRRRRBBBBDBBBBDDDDLDDDDLLLLBLLLL',
+  );
 
   /// A [Cube] from a six-Ts pattern.
-  static final sixTs = Cube.from('DDUUUUDDURLLRRRRLLFFFBFBBFBDUUDDDDUULRRLLLLRRFBFFBFBBB');
+  static final sixTs = Cube.from(
+    'DDUUUUDDURLLRRRRLLFFFBFBBFBDUUDDDDUULRRLLLLRRFBFFBFBBB',
+  );
 
   /// Rubik's Cube World Record by Feliks Zemdegs on May 6th, 2018,
   /// at Cube for Cambodia 2018 (Melbourne, Australia) in 4.22 seconds.
-  static final feliksZemdegs422 = Cube.from('FFUUUULRUBLFURFULBFURLFBBRBLDLLDDURRRFDDLFLBDRRDDBBDBF');
+  static final feliksZemdegs422 = Cube.from(
+    'FFUUUULRUBLFURFULBFURLFBBRBLDLLDDURRRFDDLFLBDRRDDBBDBF',
+  );
 
   /// Rubik's Cube World Record by Yusheng Du (杜宇生) on Nov 24th, 2018,
   /// at Wuhu Open 2018 (Wuhu, China) in 3.47 seconds.
-  static final yushengDu347 = Cube.from('LRUUUBBRRDLFDRRFFBRFFFFLUULLRDBDDLURULUULLBDBRBFDBFDBD');
+  static final yushengDu347 = Cube.from(
+    'LRUUUBBRRDLFDRRFFBRFFFFLUULLRDBDDLURULUULLBDBRBFDBFDBD',
+  );
 
   static int _cnk(
     int n,
@@ -493,14 +529,14 @@ class Cube extends Equatable {
   Cube twist(int value) {
     final co = List.of(_co);
     var twistParity = 0;
-    var _value = value;
+    var value0 = value;
 
     for (var i = Corner.downRightBack.index - 1;
         i >= Corner.upRightFront.index;
         i--) {
-      co[i] = _value % 3;
+      co[i] = value0 % 3;
       twistParity += co[i];
-      _value ~/= 3;
+      value0 ~/= 3;
     }
 
     co[Corner.downRightBack.index] = (3 - twistParity % 3) % 3;
@@ -523,12 +559,12 @@ class Cube extends Equatable {
   Cube flip(int value) {
     final eo = List.of(_eo);
     var flipParity = 0;
-    var _value = value;
+    var value0 = value;
 
     for (var i = Edge.backRight.index - 1; i >= Edge.upRight.index; i--) {
-      eo[i] = _value % 2;
+      eo[i] = value0 % 2;
       flipParity += eo[i];
-      _value ~/= 2;
+      value0 ~/= 2;
     }
 
     eo[Edge.backRight.index] = (2 - flipParity % 2) % 2;
@@ -571,7 +607,9 @@ class Cube extends Equatable {
   ///
   int computeFrontRightToBackRight() {
     final edge = List.filled(4, Edge.upRight);
-    var a = 0, x = 0, b = 0;
+    var a = 0;
+    var x = 0;
+    var b = 0;
 
     // compute the index a < (12 choose 4) and the permutation array.
     for (var j = Edge.backRight.index; j >= Edge.upRight.index; j--) {
@@ -603,7 +641,7 @@ class Cube extends Equatable {
 
     final sliceEdge = [
       Edge.frontRight, Edge.frontLeft, //
-      Edge.backLeft, Edge.backRight
+      Edge.backLeft, Edge.backRight,
     ];
 
     final otherEdge = [
@@ -652,7 +690,9 @@ class Cube extends Equatable {
   ///
   int computeUpRightFrontToDownLeftFront() {
     final corner = List.filled(6, Corner.upRightFront);
-    var a = 0, x = 0, b = 0;
+    var a = 0;
+    var x = 0;
+    var b = 0;
 
     // compute the index a < (8 choose 6) and the permutation array.
     for (var j = Corner.upRightFront.index;
@@ -731,7 +771,9 @@ class Cube extends Equatable {
   ///
   int computeUpRightToDownFront() {
     final edge = List.filled(6, Edge.upRight);
-    var a = 0, x = 0, b = 0;
+    var a = 0;
+    var x = 0;
+    var b = 0;
 
     // compute the index a < (12 choose 6) and the permutation array.
     for (var j = Edge.upRight.index; j <= Edge.backRight.index; j++) {
@@ -811,7 +853,9 @@ class Cube extends Equatable {
   ///
   int computeUpRightToUpLeft() {
     final edge = List.filled(3, Edge.upRight);
-    var a = 0, x = 0, b = 0;
+    var a = 0;
+    var x = 0;
+    var b = 0;
 
     // compute the index a < (12 choose 3) and the permutation array.
     for (var j = Edge.upRight.index; j <= Edge.backRight.index; j++) {
@@ -870,7 +914,9 @@ class Cube extends Equatable {
   ///
   int computeUpBackToDownFront() {
     final edge = List.filled(3, Edge.upRight);
-    var a = 0, x = 0, b = 0;
+    var a = 0;
+    var x = 0;
+    var b = 0;
 
     // compute the index a < (12 choose 3) and the permutation array.
     for (var j = Edge.upRight.index; j <= Edge.backRight.index; j++) {
@@ -951,11 +997,11 @@ class Cube extends Equatable {
   Cube upRightFrontToDownLeftBack(int index) {
     final cp = List.of(_cp);
     final perm = List.of(Corner.values);
-    var _index = index;
+    var index0 = index;
 
     for (var j = 1; j < 8; j++) {
-      var k = _index % (j + 1);
-      _index ~/= j + 1;
+      var k = index0 % (j + 1);
+      index0 ~/= j + 1;
 
       while (k-- > 0) {
         _rotateRight(perm, 0, j);
@@ -993,13 +1039,13 @@ class Cube extends Equatable {
 
   ///
   Cube upRightToBackRight(int index) {
-    var _index = index;
+    var index0 = index;
     final ep = List.of(_ep);
     final perm = List.of(Edge.values);
 
     for (var j = 1; j < 12; j++) {
-      var k = _index % (j + 1);
-      _index ~/= j + 1;
+      var k = index0 % (j + 1);
+      index0 ~/= j + 1;
 
       while (k-- > 0) {
         _rotateRight(perm, 0, j);
@@ -1177,9 +1223,9 @@ class Cube extends Equatable {
     Map<Color, String> colors = const <Color, String>{},
     List<Rotation> orientation = const [],
   }) {
-    var _cube = cube;
+    var cube0 = cube;
     for (final rotation in orientation) {
-      _cube = Rotation.rotate(_cube, rotation);
+      cube0 = Rotation.rotate(cube0, rotation);
     }
 
     final sb = StringBuffer()
@@ -1217,7 +1263,7 @@ class Cube extends Equatable {
 
     for (var i = 0; i < 3; i++) {
       for (var k = 0; k < 9; k++) {
-        final color = _cube[i * 9 + k];
+        final color = cube0[i * 9 + k];
         facelets.add(colors[color] ?? _defaultSVGColors[color]!);
       }
     }

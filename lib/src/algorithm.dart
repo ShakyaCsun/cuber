@@ -68,22 +68,22 @@ class Algorithm extends Equatable with ListMixin<Move> implements List<Move> {
   @override
   Move operator [](int index) => _moves[index];
 
-  /// Aplies [n] times the [Algorithm] to [cube].
+  /// Applies [n] times the [Algorithm] to [cube].
   Cube apply(
     Cube cube, {
     int n = 1,
     void Function(Cube cube, Move move, int step, int total)? onProgress,
   }) {
-    var _cube = cube;
+    var cube0 = cube;
     for (var i = 0, c = 1; i < n; i++) {
       for (var k = 0; k < length; k++, c++) {
         final move = this[k];
-        _cube = _cube.move(move);
-        onProgress?.call(_cube, move, c, length * n);
+        cube0 = cube0.move(move);
+        onProgress?.call(cube0, move, c, length * n);
       }
     }
 
-    return _cube;
+    return cube0;
   }
 
   @override
